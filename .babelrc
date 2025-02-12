@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "@pages": "./imports/ui/pages/index.ts",
+                    "@hooks": "./imports/ui/hooks/index.ts",
+                    "@components": "./imports/ui/components/index.ts",
+                    "@api/*": "./imports/api/*"
+                }
+            }
+        ],
+        [
+            "@zodern/babel-plugin-meteor-relay"
+        ]
+    ]
+}
