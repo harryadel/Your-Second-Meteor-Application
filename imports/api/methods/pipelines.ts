@@ -6,11 +6,10 @@ const axiom = new Axiom({
   token: "xaat-62ac2f30-8912-4f45-a447-cac45bd4562d",
 });
 export function loggedInPipeline<T>(input: T) {
-  if (!Meteor.userId()) {
+  if (!this.userId) {
     throw new Error("You must be logged in to add a product");
   }
-
-  return input;
+  return {...input, userId: this.userId};
 }
 
 function logResult<T>(input: T, pipeline: any) {
