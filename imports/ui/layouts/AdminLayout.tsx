@@ -27,7 +27,7 @@ const AdminLayout = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products">
-            <Route index element={<ProductList />} />
+            <Route index={true} element={<ProductList />} />
             <Route path="add" element={<ProductAdd />} />
           </Route>
           <Route path="/users">
@@ -41,7 +41,7 @@ const AdminLayout = () => {
 
 export default AdminLayout;
 
-const Navbar = ({}) => {
+const Navbar = () => {
   const links = collections.map(item => <LinksGroup {...item} key={item.label} />);
 
   return (

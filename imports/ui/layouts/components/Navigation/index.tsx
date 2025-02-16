@@ -92,7 +92,7 @@ const Navigation = ({ onClose, ...others }: NavigationProps) => {
         </Flex>
       </Navbar.Section>
 
-      <Navbar.Section grow className={classes.links} component={ScrollArea}>
+      <Navbar.Section grow={true} className={classes.links} component={ScrollArea}>
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>
 

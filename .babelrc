@@ -13,6 +13,16 @@
         ],
         [
             "@zodern/babel-plugin-meteor-relay"
+        ],
+        [
+            "babel-plugin-istanbul",
+            {
+                "exclude": [
+                    "**/*.tests.ts",
+                    "**/*.test.ts",
+                    "**/tests/**"
+                ]
+            }
         ]
     ]
 }

@@ -10,7 +10,7 @@ const FilterDate = ({ label, name }: { label: string; name: string }) => {
   return (
     <DatePickerInput
       type="range"
-      clearable
+      clearable={true}
       miw={200}
       label={label}
       value={query.filters?.[name]?.map((x: any) => (x ? new Date(x) : undefined))}

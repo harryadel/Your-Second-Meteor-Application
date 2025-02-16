@@ -1,0 +1,72 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"vcs": {
+		"enabled": false,
+		"clientKind": "git",
+		"useIgnoreFile": false
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": [
+			".meteor/**/*", 
+			".coverage/**/*",
+			"**/*.d.ts"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab"
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"all": false,
+				"useImportType": "off",
+				"useNamingConvention": "off"
+			},
+			"correctness": {
+				"all": true,
+				"noUnreachable": "error",
+				"noUndeclaredDependencies": "off",
+				"noUnusedImports": "off",
+				"useImportExtensions": "off",
+				"noNodejsModules": "off",
+				"useExhaustiveDependencies": "off",
+				"noEmptyPattern": "off"
+			},
+			"suspicious": {
+				"all": true,
+				"noConsoleLog": "warn",
+				"noReactSpecificProps": "off",
+				"noExplicitAny": "off",
+				"useAwait": "off",
+				"noArrayIndexKey": "off"
+			},
+			"performance":{
+				"noAccumulatingSpread": "off",
+				"noDelete": "off"
+			},
+			"complexity": {
+				"all": true,
+				"useArrowFunction": "error",
+				"noBannedTypes": "off"
+			},
+			"a11y": {
+				"useValidAnchor": "off",
+				"useKeyWithClickEvents": "off",
+				"useButtonType": "off",
+				"noSvgWithoutTitle": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double"
+		}
+	}
+}

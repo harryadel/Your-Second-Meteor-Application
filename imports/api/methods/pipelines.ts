@@ -1,16 +1,16 @@
 import { Meteor } from "meteor/meteor";
 import { setGlobalMethodPipeline } from "meteor/zodern:relay";
 import { Axiom } from "@axiomhq/js";
+import logger from "../../utils/logger";
 
 const axiom = new Axiom({
   token: "xaat-62ac2f30-8912-4f45-a447-cac45bd4562d",
 });
 export function loggedInPipeline<T>(input: T) {
-  if (!Meteor.userId()) {
+  if (!this.userId) {
     throw new Error("You must be logged in to add a product");
   }
-
-  return input;
+  return {...input, userId: this.userId};
 }
 
 function logResult<T>(input: T, pipeline: any) {
@@ -25,8 +25,7 @@ function logResult<T>(input: T, pipeline: any) {
   });
 
   pipeline.onError((error: any) => {
-    console.log(`Method ${pipeline.name} failed`);
-    console.log("Error", error);
+    logger.error(`Method ${pipeline.name} failed`, { error });
     if (Meteor.isProduction) {
       axiom.ingest("leadsnet", [{ pipeline, error, type: "error" }]);
     }
@@ -35,10 +34,11 @@ function logResult<T>(input: T, pipeline: any) {
   return input;
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
 const flattenObj = ob => {
   // The object which contains the
   // final result
-  let result = {};
+  const result = {};
 
   // loop through the object "ob"
   for (const i in ob) {

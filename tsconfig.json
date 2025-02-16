@@ -53,10 +53,20 @@
       "mocha"
     ],
     "esModuleInterop": true,
-    "preserveSymlinks": true
+    "allowSyntheticDefaultImports": true,
+    "preserveSymlinks": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "imports/types"
+    ]
   },
   "exclude": [
     "./.meteor/**",
     "./packages/**"
+  ],
+  "include": [
+    "./imports/**/*",
+    "./client/**/*",
+    "./server/**/*"
   ]
 }

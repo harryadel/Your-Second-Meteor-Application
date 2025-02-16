@@ -38,7 +38,6 @@ percolate:migrations
 # Testing packages
 
 dburles:factory
-xolvio:cleaner
 meteortesting:mocha
 meteortesting:mocha-core
 meteortesting:browser-tests

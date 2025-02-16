@@ -9,6 +9,7 @@ import { useGetProducts } from "@hooks";
 import { DataTableColumn } from "mantine-datatable";
 import { productsDelete } from "/imports/api/methods/products";
 import { Product } from "/imports/api/collections/products";
+import logger from "../../../utils/logger";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ const ProductList = () => {
         columns={columns}
         useGetPaginatedHook={useGetProducts}
         onRowClick={({ record }) => {
-          console.log("Navigate to details", record._id);
+          logger.debug("Navigating to product details", { productId: record._id });
         }}
       ></CustomDataTable>
     </>

@@ -33,3 +33,13 @@ export const listUsers = createMethod({
     return { data, total };
   },
 });
+
+export const getUserDetails = createMethod({
+  name: "users.details",
+  schema: z.object({
+    userId: z.string(),
+  }),
+  async run({ userId }) {
+    return Meteor.users.findOne(userId);
+  },
+});

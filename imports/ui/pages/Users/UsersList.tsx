@@ -134,7 +134,7 @@ const UsersList = () => {
         title: "Actions",
         render: record => {
           return (
-            <Menu withArrow position="bottom" withinPortal>
+            <Menu withArrow={true} position="bottom" withinPortal={true}>
               <Menu.Target>
                 <ActionIcon onClick={e => e.stopPropagation()} variant="default">
                   <IconDots size={16} stroke={1.5} />

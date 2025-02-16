@@ -1,7 +1,3 @@
-/** @format */
-
-///<reference types="graphql" />
-
 declare module "meteor/cultofcoders:grapher" {
   import { Mongo } from "meteor/mongo";
   import { DocumentNode } from "graphql";
@@ -102,6 +98,17 @@ declare module "meteor/cultofcoders:grapher" {
       maxLimit: number;
       maxDepth: number;
     }
+  }
+
+  interface Query<T> {
+    fetch(): Promise<T[]>;
+    fetchOne(): Promise<T | null>;
+    setParams(params: any): this;
+  }
+
+  interface Collection<T, U> extends Mongo.Collection<T, U> {
+    createQuery(params?: any): Query<U>;
+    astToQuery(ast: any): Query<U>;
   }
 
   export function setAstToQueryDefaults(options: Grapher.ASTToQueryOptions): void;

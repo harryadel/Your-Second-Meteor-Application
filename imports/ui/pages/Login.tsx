@@ -17,6 +17,7 @@ import { Meteor } from "meteor/meteor";
 import { Navigate } from "react-router";
 import { handleMeteorError } from "../utils/notifications";
 import { useTracker } from "meteor/react-meteor-data";
+import logger from "../../utils/logger";
 
 const Login = () => {
   const [redirect, setRedirect] = useState(false);
@@ -41,7 +42,7 @@ const Login = () => {
     setIsLoading(true);
     const { email, password, code } = doc;
     if (shouldAskCode) {
-      console.log("shouldAskCode", shouldAskCode);
+      logger.debug("Login state", { shouldAskCode });
       Meteor.loginWithPasswordAnd2faCode(email, password, code, err => {
         if (err instanceof Meteor.Error) {
           handleMeteorError(err.reason!);
@@ -95,18 +96,18 @@ const Login = () => {
           </Anchor>
         </Text> */}
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <Paper withBorder={true} shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={form.onSubmit(values => submit(values))}>
           <TextInput
             label="Email"
             placeholder="user@example.com"
-            required
+            required={true}
             {...form.getInputProps("email")}
           />
           <PasswordInput
             label="Password"
             placeholder="Your password"
-            required
+            required={true}
             mt="md"
             {...form.getInputProps("password")}
           />
@@ -116,7 +117,7 @@ const Login = () => {
               <PinInput
                 {...form.getInputProps("code")}
                 type="number"
-                autoFocus
+                autoFocus={true}
                 length={6}
               ></PinInput>
             </Stack>
@@ -127,7 +128,7 @@ const Login = () => {
               Forgot password?
             </Anchor>
           </Group>
-          <Button fullWidth mt="xl" type="submit" loading={isLoading}>
+          <Button fullWidth={true} mt="xl" type="submit" loading={isLoading}>
             Sign in
           </Button>
         </form>

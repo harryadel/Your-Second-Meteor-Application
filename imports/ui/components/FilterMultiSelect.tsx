@@ -21,8 +21,8 @@ const FilterMultiSelect = ({
     <MultiSelect
       label={label}
       miw={200}
-      searchable
-      clearable
+      searchable={true}
+      clearable={true}
       placeholder={label}
       data={data}
       value={query.filters?.[name]?.map((v: string) => String(v))}
