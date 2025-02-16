@@ -1,7 +1,8 @@
 {
-    "plugins": [
-        [
-            "module-resolver",
+  "env": {
+    "development": {
+      "plugins": [
+            ["module-resolver",
             {
                 "alias": {
                     "@pages": "./imports/ui/pages/index.ts",
@@ -9,20 +10,21 @@
                     "@components": "./imports/ui/components/index.ts",
                     "@api/*": "./imports/api/*"
                 }
-            }
-        ],
-        [
-            "@zodern/babel-plugin-meteor-relay"
-        ],
-        [
-            "babel-plugin-istanbul",
-            {
-                "exclude": [
-                    "**/*.tests.ts",
-                    "**/*.test.ts",
-                    "**/tests/**"
-                ]
-            }
-        ]
-    ]
+            }],
+        "@zodern/babel-plugin-meteor-relay"
+      ]
+    },
+    "test": {
+      "plugins": [
+        ["istanbul", {
+          "exclude": [
+            "**/*.tests.ts",
+            "**/*.test.ts",
+            "**/tests/**"
+          ]
+        }],
+        "@zodern/babel-plugin-meteor-relay"
+      ]
+    }
+  }
 }
