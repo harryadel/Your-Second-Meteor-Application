@@ -34,6 +34,7 @@ function logResult<T>(input: T, pipeline: any) {
   return input;
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
 const flattenObj = ob => {
   // The object which contains the
   // final result

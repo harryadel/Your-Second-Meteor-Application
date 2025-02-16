@@ -2,7 +2,7 @@ import { SegmentedControl, Stack } from "@mantine/core";
 import { Text } from "@mantine/core";
 import React from "react";
 import { JsonParam, NumberParam, useQueryParams } from "use-query-params";
-import * as _ from "underscore";
+import { isEqual, omit as _omit } from "underscore";
 const FilterDate = ({
   label,
   name,
@@ -45,7 +45,7 @@ const FilterDate = ({
               setQuery({ page: 1, filters: { ...query.filters, [name]: false } });
               break;
             default:
-              setQuery({ page: 1, filters: { ..._.omit(query.filters, name) } }); //Removing the filter
+              setQuery({ page: 1, filters: { ..._omit(query.filters, name) } }); //Removing the filter
               break;
           }
         }}

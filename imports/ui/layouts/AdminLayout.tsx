@@ -41,7 +41,7 @@ const AdminLayout = () => {
 
 export default AdminLayout;
 
-const Navbar = ({}) => {
+const Navbar = () => {
   const links = collections.map(item => <LinksGroup {...item} key={item.label} />);
 
   return (

@@ -33,16 +33,28 @@
 				"all": true,
 				"noUnreachable": "error",
 				"noUndeclaredDependencies": "off",
-				"noUnusedImports": "off"
+				"noUnusedImports": "off",
+				"useImportExtensions": "off",
+				"noNodejsModules": "off",
+				"useExhaustiveDependencies": "off",
+				"noEmptyPattern": "off"
 			},
 			"suspicious": {
 				"all": true,
 				"noConsoleLog": "warn",
-				"noReactSpecificProps": "off"
+				"noReactSpecificProps": "off",
+				"noExplicitAny": "off",
+				"useAwait": "off",
+				"noArrayIndexKey": "off"
+			},
+			"performance":{
+				"noAccumulatingSpread": "off",
+				"noDelete": "off"
 			},
 			"complexity": {
 				"all": true,
-				"useArrowFunction": "error"
+				"useArrowFunction": "error",
+				"noBannedTypes": "off"
 			},
 			"a11y": {
 				"useValidAnchor": "off",

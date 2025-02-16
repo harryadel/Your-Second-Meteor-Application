@@ -58,7 +58,7 @@ const CustomDataTable = <T,>({
       limit: pageSize,
       sort: {
         field: sortStatus.columnAccessor ?? null,
-        direction: sortStatus.direction === "desc" ?? null,
+        direction: sortStatus.direction === "desc",
       },
     },
     filters,

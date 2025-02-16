@@ -11,8 +11,8 @@
     "coverage:unit": "BABEL_ENV=COVERAGE TEST_BROWSER_DRIVER=puppeteer COVERAGE=1 COVERAGE_OUT_HTML=1 COVERAGE_APP_FOLDER=$PWD/ meteor test --once --driver-package meteortesting:mocha",
     "coverage:watch": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_VERBOSE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha",
     "format": "biome format .",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint . --apply",
+    "lint": "biome lint . --verbose --log-level=debug --max-diagnostics=100",
+    "lint:fix": "biome lint . --verbose --apply --log-level=debug",
     "check": "biome check ."
   },
   "dependencies": {
@@ -63,6 +63,7 @@
     "@types/node": "^18.13.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
+    "@types/underscore": "^1.13.0",
     "babel-plugin-istanbul": "^7.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "postcss": "^8.4.49",
