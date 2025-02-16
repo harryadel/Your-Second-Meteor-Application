@@ -13,7 +13,14 @@
     "format": "biome format .",
     "lint": "biome lint . --verbose --log-level=debug --max-diagnostics=100",
     "lint:fix": "biome lint . --verbose --apply --log-level=debug",
-    "check": "biome check ."
+    "check": "biome check .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "npm run test:once"
+    ]
   },
   "dependencies": {
     "@axiomhq/js": "^1.3.1",
@@ -66,6 +73,8 @@
     "@types/underscore": "^1.13.0",
     "babel-plugin-istanbul": "^7.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "postcss": "^8.4.49",
     "postcss-easy-import": "^4.0.0",
     "postcss-load-config": "^6.0.1",
