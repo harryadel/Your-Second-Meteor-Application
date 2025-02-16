@@ -95,7 +95,7 @@ const CustomDataTable = <T,>({
           minHeight={200}
           verticalSpacing="xs"
           borderRadius={"0.25rem"}
-          highlightOnHover
+          highlightOnHover={true}
           records={records}
           totalRecords={rowCount}
           recordsPerPage={pageSize}

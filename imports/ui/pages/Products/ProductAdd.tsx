@@ -63,7 +63,7 @@ const ProductAdd = () => {
                 placeholder="Product Name"
                 label="Product Name"
                 description="This represents the name of the product"
-                withAsterisk
+                withAsterisk={true}
                 {...form.getInputProps("name")}
               />
               <TextInput
@@ -71,7 +71,7 @@ const ProductAdd = () => {
                 placeholder="Product Type"
                 label="Product Type"
                 description="This represents the type of the product"
-                withAsterisk
+                withAsterisk={true}
                 {...form.getInputProps("type")}
               />
             </Stack>

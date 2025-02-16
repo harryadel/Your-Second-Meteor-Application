@@ -58,7 +58,7 @@ const UserSendNotification = forwardRef(({}, ref) => {
         <Stack>
           <Select
             label="Select NotificationTemplate"
-            searchable
+            searchable={true}
             data={notificationTemplates?.map(template => ({
               value: template._id!,
               label: template.title!,

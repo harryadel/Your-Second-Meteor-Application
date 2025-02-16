@@ -95,18 +95,18 @@ const Login = () => {
           </Anchor>
         </Text> */}
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <Paper withBorder={true} shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={form.onSubmit(values => submit(values))}>
           <TextInput
             label="Email"
             placeholder="user@example.com"
-            required
+            required={true}
             {...form.getInputProps("email")}
           />
           <PasswordInput
             label="Password"
             placeholder="Your password"
-            required
+            required={true}
             mt="md"
             {...form.getInputProps("password")}
           />
@@ -116,7 +116,7 @@ const Login = () => {
               <PinInput
                 {...form.getInputProps("code")}
                 type="number"
-                autoFocus
+                autoFocus={true}
                 length={6}
               ></PinInput>
             </Stack>
@@ -127,7 +127,7 @@ const Login = () => {
               Forgot password?
             </Anchor>
           </Group>
-          <Button fullWidth mt="xl" type="submit" loading={isLoading}>
+          <Button fullWidth={true} mt="xl" type="submit" loading={isLoading}>
             Sign in
           </Button>
         </form>

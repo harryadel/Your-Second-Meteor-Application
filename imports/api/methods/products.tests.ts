@@ -4,18 +4,18 @@ import assert from 'assert';
 import { Products } from '/imports/api/collections/products';
 import './products.ts';
 
-describe('products', function() {
+describe('products', () => {
   const userId = 'Km2Zr9XyW4uPnE5Dj';
   let productId: string;
 
-  beforeEach(async function () {
+  beforeEach(async () => {
     // Use rawCollection to bypass soft delete
     const rawCollection = Products.collection.rawCollection();
     await rawCollection.deleteMany({});
   });
 
-  it('should insert a new product', async function(){
-    let product = {
+  it('should insert a new product', async ()=> {
+    const product = {
       name: 'test-name',
       type: 'test-type',
       userId,
@@ -24,17 +24,17 @@ describe('products', function() {
       updatedAt: new Date()
     };
 
-    let method = Meteor.server.method_handlers['products.add'];
+    const method = Meteor.server.method_handlers['products.add'];
     
     productId = await method.apply({ userId }, [{name: product.name, type: product.type}]);
 
-    let foundProduct = await Products.collection.findOneAsync(productId);
+    const foundProduct = await Products.collection.findOneAsync(productId);
     
     assert.equal(foundProduct.name, product.name);
     assert.equal(foundProduct.type, product.type);
   });
 
-  it('should delete a product', async function() {
+  it('should delete a product', async () => {
     // First insert a product
     const product = { name: 'to-delete', type: 'test-type' };
     const addMethod = Meteor.server.method_handlers['products.add'];
@@ -56,7 +56,7 @@ describe('products', function() {
     assert.ok(foundProduct.deletedAt instanceof Date);
   });
 
-  it('should list products with pagination', async function() {
+  it('should list products with pagination', async () => {
     // Insert test products
     const products = [
       { name: 'product1', type: 'type1' },

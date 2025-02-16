@@ -37,7 +37,7 @@ function logResult<T>(input: T, pipeline: any) {
 const flattenObj = ob => {
   // The object which contains the
   // final result
-  let result = {};
+  const result = {};
 
   // loop through the object "ob"
   for (const i in ob) {

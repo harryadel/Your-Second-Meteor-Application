@@ -282,18 +282,18 @@ const UsersDetails = () => {
         </Group>
         <Grid gutter={"sm"}>
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Card withBorder radius="md">
-              <CardSection withBorder p="xs">
+            <Card withBorder={true} radius="md">
+              <CardSection withBorder={true} p="xs">
                 <Title order={5}>User Info</Title>
               </CardSection>
-              <CardSection withBorder p="xs">
+              <CardSection withBorder={true} p="xs">
                 <Stack>
                   <LineItemHorizontal label="Name" value={data?.profile?.fullName} />
                   <LineItemHorizontal label="Username" value={data?.username} />
                   <LineItemHorizontal label="Email" value={data?.emails[0]?.address} />
                 </Stack>
               </CardSection>
-              <CardSection withBorder p="xs">
+              <CardSection withBorder={true} p="xs">
                 <Stack>
                   <LineItemHorizontal label="Joined At" value={format(data?.createdAt, "Pp")} />
                   <LineItemHorizontal
@@ -302,7 +302,7 @@ const UsersDetails = () => {
                   />
                 </Stack>
               </CardSection>
-              <CardSection withBorder p="xs">
+              <CardSection withBorder={true} p="xs">
                 <Stack>
                   <LineItemHorizontal label="Role" value={data?.role} />
                   <LineItemHorizontal label="Status" value={data?.profile?.status} />
@@ -316,11 +316,11 @@ const UsersDetails = () => {
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Card withBorder radius="md">
-              <CardSection withBorder p="xs">
+            <Card withBorder={true} radius="md">
+              <CardSection withBorder={true} p="xs">
                 <Title order={5}>User Image</Title>
               </CardSection>
-              <CardSection withBorder p="xs">
+              <CardSection withBorder={true} p="xs">
                 <Image
                   fallbackSrc="/images/placeholder.jpg"
                   src={data?.profile?.image?.url}
@@ -330,8 +330,8 @@ const UsersDetails = () => {
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Card withBorder radius="md">
-              <CardSection withBorder p="xs">
+            <Card withBorder={true} radius="md">
+              <CardSection withBorder={true} p="xs">
                 <Group justify="space-between">
                   <Title order={5}>Rating</Title>
                   <ActionIcon
@@ -344,14 +344,14 @@ const UsersDetails = () => {
                   </ActionIcon>
                 </Group>
               </CardSection>
-              <CardSection withBorder p="xs">
+              <CardSection withBorder={true} p="xs">
                 <Rating value={data.profile.rating} onChange={updateRating} />
               </CardSection>
             </Card>
           </Grid.Col>
         </Grid>
 
-        <Card withBorder radius="md">
+        <Card withBorder={true} radius="md">
           <Tabs defaultValue="chat">
             <Tabs.List>
               <Tabs.Tab value="properties" rightSection={<Badge>{data?.properties?.length}</Badge>}>
@@ -377,7 +377,7 @@ const UsersDetails = () => {
                 onRowClick={row => {
                   navigate(`/dashboard/properties/${row.record._id}`);
                 }}
-                highlightOnHover
+                highlightOnHover={true}
                 emptyState={<Text>No properties found</Text>}
               ></DataTable>
             </Tabs.Panel>
@@ -391,7 +391,7 @@ const UsersDetails = () => {
                 onRowClick={row => {
                   navigate(`/dashboard/requests/${row.record._id}`);
                 }}
-                highlightOnHover
+                highlightOnHover={true}
                 emptyState={<Text>No requests found</Text>}
               ></DataTable>
             </Tabs.Panel>
@@ -402,7 +402,7 @@ const UsersDetails = () => {
                 columns={matchesColumns}
                 verticalSpacing="xs"
                 borderRadius={"0.25rem"}
-                highlightOnHover
+                highlightOnHover={true}
                 emptyState={<Text>No matches found</Text>}
               ></DataTable>
             </Tabs.Panel>
