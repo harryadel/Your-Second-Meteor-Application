@@ -31,7 +31,8 @@
 			},
 			"correctness": {
 				"all": true,
-				"noUnreachable": "error"
+				"noUnreachable": "error",
+				"noUndeclaredDependencies": "off"
 			},
 			"suspicious": {
 				"all": true,
