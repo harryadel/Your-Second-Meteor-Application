@@ -7,7 +7,11 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [".meteor/**/*", ".coverage/**/*"]
+		"ignore": [
+			".meteor/**/*", 
+			".coverage/**/*",
+			"**/*.d.ts"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -24,8 +28,29 @@
 				"all": true,
 				"useImportType": "off",
 				"useNamingConvention": {
-					"level": "off"
+					"options": {
+						"conventions": [
+							{
+								"selector": {
+									"kind": "objectLiteralProperty"
+								},
+								"formats": ["camelCase", "CONSTANT_CASE"]
+							}
+						]
+					}
 				}
+			},
+			"correctness": {
+				"all": true,
+				"noUnreachable": "error"
+			},
+			"suspicious": {
+				"all": true,
+				"noConsoleLog": "warn"
+			},
+			"complexity": {
+				"all": true,
+				"useArrowFunction": "error"
 			}
 		}
 	},
