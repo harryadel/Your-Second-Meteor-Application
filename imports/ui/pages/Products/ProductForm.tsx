@@ -9,10 +9,6 @@ import { PAPER_PROPS } from "../../constants/styles";
 import { productsAdd, productsUpdate } from "/imports/api/methods/products";
 import { z } from "zod";
 
-console.log("PRODUCTS ADD: ", productsAdd)
-console.log("PRODUCTS UPDATE: ", productsUpdate)
-      
-
 const ProductForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +25,7 @@ const ProductForm = () => {
   });
 
   React.useEffect(() => {
-    if (product && isEditing) {
+    if (product) {
       form.setValues({
         name: product.name,
         type: product.type,
@@ -41,7 +37,6 @@ const ProductForm = () => {
     if (isEditing) {
       await productsUpdate({ id, ...values });
     } else {
-      console.log("PRODUCTS ADD: ", productsAdd)
       await productsAdd(values);
     }
     queryClient.invalidateQueries({ queryKey: [PRODUCTS_LIST_QUERY] });

@@ -41,7 +41,10 @@ const ProductList = () => {
         title: "Actions",
         render: row => (
           <Group>
-            <Button variant="outline" onClick={() => productsDelete({ _id: row._id! })}>
+            <Button variant="outline" onClick={() => navigate(`/dashboard/products/${row._id}/edit`)}>
+              Edit
+            </Button>
+            <Button variant="outline" color="red" onClick={() => productsDelete({ _id: row._id! })}>
               Delete
             </Button>
           </Group>
