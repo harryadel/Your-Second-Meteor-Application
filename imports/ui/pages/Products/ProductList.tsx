@@ -3,16 +3,23 @@ import { CARD_PROPS, CustomDataTable, FilterSearch, Header } from "@components";
 import { Box, Button, Card, Group } from "@mantine/core";
 import { IconColumns, IconFilter, IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
-
 import { formatDistanceToNow } from "date-fns";
-import { useGetProducts } from "@hooks";
+import { useGetProducts, PRODUCTS_LIST_QUERY } from "@hooks";
 import { DataTableColumn } from "mantine-datatable";
 import { productsDelete } from "/imports/api/methods/products";
 import { Product } from "/imports/api/collections/products";
 import logger from "../../../utils/logger";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ProductList = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleDelete = async (_id: string) => {
+    await productsDelete({ _id });
+    queryClient.invalidateQueries({ queryKey: [PRODUCTS_LIST_QUERY] });
+  };
+
   const columns: DataTableColumn<Product>[] = useMemo(
     () => [
       {
@@ -44,14 +51,14 @@ const ProductList = () => {
             <Button variant="outline" onClick={() => navigate(`/dashboard/products/${row._id}/edit`)}>
               Edit
             </Button>
-            <Button variant="outline" color="red" onClick={() => productsDelete({ _id: row._id! })}>
+            <Button variant="outline" color="red" onClick={() => handleDelete(row._id!)}>
               Delete
             </Button>
           </Group>
         ),
       },
     ],
-    []
+    [navigate]
   );
 
   return (
