@@ -27,18 +27,7 @@
 			"style": {
 				"all": true,
 				"useImportType": "off",
-				"useNamingConvention": {
-					"options": {
-						"conventions": [
-							{
-								"selector": {
-									"kind": "objectLiteralProperty"
-								},
-								"formats": ["camelCase", "CONSTANT_CASE"]
-							}
-						]
-					}
-				}
+				"useNamingConvention": "off"
 			},
 			"correctness": {
 				"all": true,
