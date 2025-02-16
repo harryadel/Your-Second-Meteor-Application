@@ -32,7 +32,8 @@
 			"correctness": {
 				"all": true,
 				"noUnreachable": "error",
-				"noUndeclaredDependencies": "off"
+				"noUndeclaredDependencies": "off",
+				"noUnusedImports": "off"
 			},
 			"suspicious": {
 				"all": true,
