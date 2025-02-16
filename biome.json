@@ -22,7 +22,10 @@
 			"recommended": true,
 			"style": {
 				"all": true,
-				"useImportType": "off"
+				"useImportType": "off",
+				"useNamingConvention": {
+					"level": "off"
+				}
 			}
 		}
 	},
