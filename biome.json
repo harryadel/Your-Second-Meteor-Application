@@ -25,10 +25,9 @@
 		"rules": {
 			"recommended": true,
 			"style": {
-				"all": true,
+				"all": false,
 				"useImportType": "off",
-				"useNamingConvention": "off",
-				"useClassName": "off"
+				"useNamingConvention": "off"
 			},
 			"correctness": {
 				"all": true,
@@ -38,7 +37,8 @@
 			},
 			"suspicious": {
 				"all": true,
-				"noConsoleLog": "warn"
+				"noConsoleLog": "warn",
+				"noReactSpecificProps": "off"
 			},
 			"complexity": {
 				"all": true,
