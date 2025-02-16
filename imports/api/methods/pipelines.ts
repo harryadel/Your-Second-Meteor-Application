@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { setGlobalMethodPipeline } from "meteor/zodern:relay";
 import { Axiom } from "@axiomhq/js";
+import logger from "../../utils/logger";
 
 const axiom = new Axiom({
   token: "xaat-62ac2f30-8912-4f45-a447-cac45bd4562d",
@@ -24,8 +25,7 @@ function logResult<T>(input: T, pipeline: any) {
   });
 
   pipeline.onError((error: any) => {
-    console.log(`Method ${pipeline.name} failed`);
-    console.log("Error", error);
+    logger.error(`Method ${pipeline.name} failed`, { error });
     if (Meteor.isProduction) {
       axiom.ingest("leadsnet", [{ pipeline, error, type: "error" }]);
     }

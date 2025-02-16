@@ -17,6 +17,7 @@ import { Meteor } from "meteor/meteor";
 import { Navigate } from "react-router";
 import { handleMeteorError } from "../utils/notifications";
 import { useTracker } from "meteor/react-meteor-data";
+import logger from "../../utils/logger";
 
 const Login = () => {
   const [redirect, setRedirect] = useState(false);
@@ -41,7 +42,7 @@ const Login = () => {
     setIsLoading(true);
     const { email, password, code } = doc;
     if (shouldAskCode) {
-      console.log("shouldAskCode", shouldAskCode);
+      logger.debug("Login state", { shouldAskCode });
       Meteor.loginWithPasswordAnd2faCode(email, password, code, err => {
         if (err instanceof Meteor.Error) {
           handleMeteorError(err.reason!);
