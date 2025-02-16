@@ -6,6 +6,7 @@ import { colorsTuple, createTheme } from "@mantine/core";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import '/imports/api/methods/products';
 
 const queryClient = new QueryClient({
   defaultOptions: {

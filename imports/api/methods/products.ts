@@ -82,3 +82,28 @@ export const productsDelete = createMethod({
 }).pipeline(loggedInPipeline, product => {
   return Products.collection.removeAsync(product._id);
 });
+
+export const productsUpdate = createMethod({
+  name: "products.update",
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    type: z.string(),
+  }),
+}).pipeline(loggedInPipeline, async ({ id, ...updates }) => {
+  return Products.collection.updateAsync(id, { $set: updates });
+});
+
+export const productsSingle = createMethod({
+  name: "products.single",
+  schema: z.object({
+    id: z.string(),
+  }),
+}).pipeline(loggedInPipeline, async ({ id }) => {
+  const product = await Products.collection.findOneAsync(id);
+  if (!product) {
+    throw new Meteor.Error("not-found", "Product not found");
+  }
+  return product;
+});
+

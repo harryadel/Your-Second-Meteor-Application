@@ -2,16 +2,23 @@ import React from "react";
 import { Header, PageContainer } from "@components";
 import { Anchor, Button, Paper, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { PRODUCTS_LIST_QUERY } from "@hooks";
+import { PRODUCTS_LIST_QUERY, useProduct } from "@hooks";
 import { PAPER_PROPS } from "../../constants/styles";
-import { productsAdd } from "/imports/api/methods/products";
+import { productsAdd, productsUpdate } from "/imports/api/methods/products";
 import { z } from "zod";
 
-const ProductAdd = () => {
+console.log("PRODUCTS ADD: ", productsAdd)
+console.log("PRODUCTS UPDATE: ", productsUpdate)
+      
+
+const ProductForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { data: product, isLoading } = useProduct(id);
+  const isEditing = Boolean(id);
 
   const form = useForm({
     initialValues: {
@@ -21,20 +28,38 @@ const ProductAdd = () => {
     validate: zodResolver(schema),
   });
 
+  React.useEffect(() => {
+    if (product && isEditing) {
+      form.setValues({
+        name: product.name,
+        type: product.type,
+      });
+    }
+  }, [product]);
+
   const handleSubmit = async (values: { name: string; type: string }) => {
-    await productsAdd(values);
+    if (isEditing) {
+      await productsUpdate({ id, ...values });
+    } else {
+      console.log("PRODUCTS ADD: ", productsAdd)
+      await productsAdd(values);
+    }
     queryClient.invalidateQueries({ queryKey: [PRODUCTS_LIST_QUERY] });
     navigate(-1);
   };
 
   const breadcrumbs = [
     { title: "Products", href: "/dashboard/products" },
-    { title: "Add Product", href: "#" },
+    { title: isEditing ? "Edit Product" : "Add Product", href: "#" },
   ].map((item, index) => (
     <Anchor href={item.href} key={index}>
       {item.title}
     </Anchor>
   ));
+
+  if (isEditing && isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -51,7 +76,7 @@ const ProductAdd = () => {
         }
       >
         <Stack>
-          <Header title="Add Product" breadcrumbs={breadcrumbs}></Header>
+          <Header title={isEditing ? "Edit Product" : "Add Product"} breadcrumbs={breadcrumbs}></Header>
 
           <Paper {...PAPER_PROPS}>
             <Text size="lg" fw={600} mb="md">
@@ -87,4 +112,4 @@ const schema = z.object({
   type: z.string().min(1, "Type is required"),
 });
 
-export default ProductAdd;
+export default ProductForm;

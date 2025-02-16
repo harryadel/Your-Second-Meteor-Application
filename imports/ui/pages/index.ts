@@ -5,7 +5,7 @@ export { default as Dashboard } from "./Dashboard";
 
 //Products
 export { default as ProductList } from "./Products/ProductList";
-export { default as ProductAdd } from "./Products/ProductAdd";
+export { default as ProductForm } from "./Products/ProductForm";
 
 //Users
 export { default as UsersList } from "./Users/UsersList";

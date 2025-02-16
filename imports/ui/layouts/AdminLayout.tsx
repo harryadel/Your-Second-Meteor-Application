@@ -5,7 +5,7 @@ import "./AdminLayout.styles.css";
 import { IconBrandProducthunt, IconCalendarStats, IconGauge } from "@tabler/icons-react";
 import { LinksGroup } from "./components/NavbarLinksGroup";
 import { Route, Routes } from "react-router-dom";
-import { UsersList, Dashboard, ProductAdd, ProductList } from "@pages";
+import { UsersList, Dashboard, ProductForm, ProductList } from "@pages";
 const AdminLayout = () => {
   const [opened, { toggle }] = useDisclosure(true);
   return (
@@ -27,8 +27,9 @@ const AdminLayout = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products">
-            <Route index={true} element={<ProductList />} />
-            <Route path="add" element={<ProductAdd />} />
+            <Route index element={<ProductList />} />
+            <Route path="add" element={<ProductForm />} />
+            <Route path=":id/edit" element={<ProductForm />} />
           </Route>
           <Route path="/users">
             <Route element={<UsersList />} />
