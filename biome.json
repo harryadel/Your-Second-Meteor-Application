@@ -27,7 +27,8 @@
 			"style": {
 				"all": true,
 				"useImportType": "off",
-				"useNamingConvention": "off"
+				"useNamingConvention": "off",
+				"useClassName": "off"
 			},
 			"correctness": {
 				"all": true,
@@ -42,6 +43,12 @@
 			"complexity": {
 				"all": true,
 				"useArrowFunction": "error"
+			},
+			"a11y": {
+				"useValidAnchor": "off",
+				"useKeyWithClickEvents": "off",
+				"useButtonType": "off",
+				"noSvgWithoutTitle": "off"
 			}
 		}
 	},
