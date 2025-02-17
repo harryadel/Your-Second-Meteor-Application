@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header, PageContainer } from "@components";
-import { Anchor, Button, Paper, Stack, Text, TextInput } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { Anchor, Button, Paper, Stack, Text, TextInput, MultiSelect, Select } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { useNavigate, useParams } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { PRODUCTS_LIST_QUERY, useProduct } from "@hooks";
 import { PAPER_PROPS } from "../../constants/styles";
 import { productsAdd, productsUpdate } from "/imports/api/methods/products";
-import { z } from "zod";
+import { useCategories } from "/imports/ui/hooks/useCategories";
+import { ProductType } from "/imports/api/types/products";
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -15,25 +16,32 @@ const ProductForm = () => {
   const queryClient = useQueryClient();
   const { data: product, isLoading } = useProduct(id);
   const isEditing = Boolean(id);
+  const { data: categories = [] } = useCategories();
 
   const form = useForm({
     initialValues: {
       name: "",
-      type: "",
+      type: ProductType.Physical,
+      categoryIds: [] as string[],
     },
-    validate: zodResolver(schema),
+    validate: {
+      name: (value) => (!value ? "Name is required" : null),
+      type: (value) => (!value ? "Type is required" : null),
+      categoryIds: (value) => (value.length === 0 ? "At least one category is required" : null),
+    },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (product) {
       form.setValues({
         name: product.name,
         type: product.type,
+        categoryIds: product.categoryIds,
       });
     }
   }, [product]);
 
-  const handleSubmit = async (values: { name: string; type: string }) => {
+  const handleSubmit = async (values: { name: string; type: ProductType; categoryIds: string[] }) => {
     if (isEditing) {
       await productsUpdate({ id, ...values });
     } else {
@@ -51,6 +59,17 @@ const ProductForm = () => {
       {item.title}
     </Anchor>
   ));
+
+  const categoryOptions = categories.map((category) => ({
+    value: category._id,
+    label: category.title,
+  }));
+
+  const typeOptions = Object.entries(ProductType).map(([key, value]) => ({
+    value,
+    // Capitalize the first letter
+    label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase(),
+  }));
 
   if (isEditing && isLoading) {
     return <div>Loading...</div>;
@@ -86,13 +105,23 @@ const ProductForm = () => {
                 withAsterisk={true}
                 {...form.getInputProps("name")}
               />
-              <TextInput
+              <Select
                 name="type"
-                placeholder="Product Type"
+                data={typeOptions}
                 label="Product Type"
-                description="This represents the type of the product"
+                description="Choose whether this is a physical or digital product"
                 withAsterisk={true}
                 {...form.getInputProps("type")}
+              />
+              <MultiSelect
+                name="categoryIds"
+                data={categoryOptions}
+                label="Categories"
+                placeholder="Select categories"
+                description="Select one or more categories for this product"
+                withAsterisk={true}
+                searchable
+                {...form.getInputProps("categoryIds")}
               />
             </Stack>
           </Paper>
@@ -101,10 +130,5 @@ const ProductForm = () => {
     </form>
   );
 };
-
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  type: z.string().min(1, "Type is required"),
-});
 
 export default ProductForm;

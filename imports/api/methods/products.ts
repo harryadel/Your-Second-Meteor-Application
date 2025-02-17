@@ -8,6 +8,7 @@ import { loggedInPipeline } from "./pipelines";
 const productFilterSchema = z.object({
   name: z.string().optional(),
   type: z.string().optional(),
+  categoryIds: z.array(z.string()).optional(),
   isDeleted: z.boolean().optional(),
   userId: z.string().optional()
 }).strict();
@@ -27,7 +28,6 @@ export const productsList = createMethod({
   }),
   async run(args): Promise<{ data: Product[]; total: number }> {
     const { filters = {}, options } = args;
-
     // Ensure we only show non-deleted items by default
     const secureFilters = {
       ...filters,
@@ -36,8 +36,9 @@ export const productsList = createMethod({
 
     // Create a secure sort object for MongoDB
     const sort = options.sort 
-      ? { [options.sort.field]: options.sort.direction ? 1 : -1 }
+      ? { [options.sort.field]: options.sort.direction ? -1 : 1 }
       : { createdAt: -1 };
+    
 
     const data = await Products.collection
       .createQuery({
@@ -48,6 +49,7 @@ export const productsList = createMethod({
         },
         name: 1,
         type: 1,
+        categoryIds: 1,
         user: {
           emails: 1,
         },
@@ -69,6 +71,7 @@ export const productsAdd = createMethod({
   schema: z.object({
     name: z.string(),
     type: z.string(),
+    categoryIds: z.array(z.string()),
   }),
 }).pipeline(loggedInPipeline, (product) => {
   return Products.collection.insertAsync(product);
@@ -89,6 +92,7 @@ export const productsUpdate = createMethod({
     id: z.string(),
     name: z.string(),
     type: z.string(),
+    categoryIds: z.array(z.string()),
   }),
 }).pipeline(loggedInPipeline, async ({ id, ...updates }) => {
   return Products.collection.updateAsync(id, { $set: updates });
@@ -106,4 +110,3 @@ export const productsSingle = createMethod({
   }
   return product;
 });
-

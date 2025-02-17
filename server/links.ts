@@ -8,3 +8,11 @@ Products.collection.addLinks({
     type: "one",
   },
 });
+
+ Products.collection.addLinks({
+  categories: {
+    collection: "categories",
+    field: "categoryIds",
+    type: "many",
+  },
+});
