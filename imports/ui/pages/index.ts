@@ -1,11 +1,9 @@
 export { default as Login } from "./Login";
-
-//Dashboard
 export { default as Dashboard } from "./Dashboard";
 
 //Products
-export { default as ProductList } from "./Products/ProductList";
-export { default as ProductForm } from "./Products/ProductForm";
+export * from "./Products";
+export * from "./Categories";
 
 //Users
 export { default as UsersList } from "./Users/UsersList";

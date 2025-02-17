@@ -5,7 +5,7 @@ import "./AdminLayout.styles.css";
 import { IconBrandProducthunt, IconCalendarStats, IconGauge } from "@tabler/icons-react";
 import { LinksGroup } from "./components/NavbarLinksGroup";
 import { Route, Routes } from "react-router-dom";
-import { UsersList, Dashboard, ProductForm, ProductList } from "@pages";
+import { UsersList, Dashboard, ProductForm, ProductList, CategoryList, CategoryForm } from "@pages";
 const AdminLayout = () => {
   const [opened, { toggle }] = useDisclosure(true);
   return (
@@ -30,6 +30,11 @@ const AdminLayout = () => {
             <Route index element={<ProductList />} />
             <Route path="add" element={<ProductForm />} />
             <Route path=":id/edit" element={<ProductForm />} />
+          </Route>
+          <Route path="/categories">
+            <Route index element={<CategoryList />} />
+            <Route path="add" element={<CategoryForm />} />
+            <Route path=":id/edit" element={<CategoryForm />} />
           </Route>
           <Route path="/users">
             <Route element={<UsersList />} />
@@ -63,7 +68,11 @@ const collections = [
     icon: IconBrandProducthunt,
     link: "/dashboard/products",
   },
-
+  {
+    label: "Categories",
+    icon: IconCalendarStats,
+    link: "/dashboard/categories",
+  },
   {
     label: "Users",
     icon: IconCalendarStats,
