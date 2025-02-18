@@ -8,12 +8,13 @@ import { loggedInPipeline } from "./pipelines";
 const productFilterSchema = z.object({
   name: z.string().optional(),
   type: z.array(z.string()).optional(),
-  categoryIds: z.array(z.string()).optional(),
+  categoryIds: z.array(z.string().optional()).optional(),
   search: z.object({
-    fields: z.array(z.string()),
+    fields: z.array(z.string()).optional(),
     searchText: z.string().optional(),
   }).optional(),
-  userId: z.array(z.string()).optional(),
+  userId: z.string().optional(),
+  createdAt: z.array(z.string().nullable()).optional(),
 }).strict();
 
 export const productsList = createMethod({

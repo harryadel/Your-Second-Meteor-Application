@@ -13,7 +13,6 @@ type useGetProductsProps = {
 };
 
 export function useGetProducts(methodInput: useGetProductsProps) {
-  console.log("METHOD INPUT: ", methodInput)
   const { filters, options } = { ...methodInput };
 
   const query = useQuery<{ data: Product[]; total: number }>({
