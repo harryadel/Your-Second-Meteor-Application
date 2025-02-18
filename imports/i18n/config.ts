@@ -1,11 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import productsEn from './en/products.json';
+import translationEn from './en/translations.json';
 
 export const resources = {
   en: {
-    products: productsEn,
+    translations: translationEn,
   },
 } as const;
 
@@ -18,7 +18,7 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    defaultNS: 'products',
+    defaultNS: 'translations',
   });
 
 export default i18n;
