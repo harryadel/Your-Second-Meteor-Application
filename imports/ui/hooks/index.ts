@@ -4,4 +4,4 @@ export * from "./users";
 
 export { useProduct, useGetProducts, PRODUCT_QUERY } from "./products";
 export { useGetUsers } from "./users";
-export { useGetCategories } from "./categories";
+export { useGetCategories, useGetCategory } from "./categories";

@@ -1,8 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { categoriesList } from "/imports/api/methods/categories";
+import { categoriesList, categoriesSingle } from "/imports/api/methods/categories";
 import { Category } from "/imports/api/collections/categories";
 
 export const CATEGORIES_LIST_QUERY = "CATEGORIES_LIST_QUERY";
+export const CATEGORY_QUERY = "category";
 
 type useGetCategoriesProps = {
   options: {
@@ -28,6 +29,19 @@ export function useGetCategories(methodInput: useGetCategoriesProps) {
       return categoriesList({ filters, options });
     },
     placeholderData: keepPreviousData,
+  });
+
+  return query;
+}
+
+export function useGetCategory(id?: string) {
+  const query = useQuery<Category | null>({
+    queryKey: [CATEGORY_QUERY, id],
+    queryFn: async () => {
+      if (!id) return null;
+      return categoriesSingle({ id });
+    },
+    enabled: !!id,
   });
 
   return query;

@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Card, Group, TextInput, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { categoriesAdd, categoriesUpdate, categoriesSingle } from "/imports/api/methods/categories";
-import { useQuery } from "@tanstack/react-query";
+import { categoriesAdd, categoriesUpdate } from "/imports/api/methods/categories";
+import { useQueryClient } from "@tanstack/react-query";
+import { useGetCategory } from "@hooks";
 
 export default function CategoryForm() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const form = useForm({
     initialValues: {
@@ -18,14 +20,7 @@ export default function CategoryForm() {
     },
   });
 
-  const { data: category } = useQuery({
-    queryKey: ["category", id],
-    queryFn: async () => {
-      if (!id) return null;
-      return categoriesSingle({ id });
-    },
-    enabled: !!id,
-  });
+  const { data: category } = useGetCategory(id);
 
   useEffect(() => {
     if (category) {
