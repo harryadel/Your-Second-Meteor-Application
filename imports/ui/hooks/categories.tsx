@@ -15,7 +15,6 @@ type useGetCategoriesProps = {
   };
   filters?: {
     title?: string;
-    isDeleted?: boolean;
     userId?: string;
   };
 };
