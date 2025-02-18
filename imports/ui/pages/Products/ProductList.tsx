@@ -12,7 +12,7 @@ import logger from "../../../utils/logger";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDisclosure } from "@mantine/hooks";
 import { ProductType } from "/imports/api/types/products";
-import { useCategories } from "/imports/ui/hooks/useCategories";
+import { useGetCategories } from "/imports/ui/hooks/categories";
 import { useGetUsers } from "/imports/ui/hooks/users";
 import { useTranslation } from "react-i18next";
 import "/imports/i18n/config";
@@ -21,7 +21,7 @@ const ProductList = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
-  const { data: categories = [] } = useCategories();
+  const { data: categories = [] } = useGetCategories();
   const { data: usersData } = useGetUsers({
     options: { skip: 0, limit: 100, sort: { field: "createdAt", direction: true } },
     filters: []

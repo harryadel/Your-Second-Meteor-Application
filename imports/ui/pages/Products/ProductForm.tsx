@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { PRODUCTS_LIST_QUERY, useProduct } from "@hooks";
 import { PAPER_PROPS } from "../../constants/styles";
 import { productsAdd, productsUpdate } from "/imports/api/methods/products";
-import { useCategories } from "/imports/ui/hooks/useCategories";
+import { useGetCategories } from "/imports/ui/hooks/categories";
 import { ProductType } from "/imports/api/types/products";
 import { useTranslation } from "react-i18next";
 import "/imports/i18n/config";
@@ -18,7 +18,7 @@ const ProductForm = () => {
   const queryClient = useQueryClient();
   const { data: product, isLoading } = useProduct(id);
   const isEditing = Boolean(id);
-  const { data: categories = [] } = useCategories();
+  const { data: categories = [] } = useGetCategories();
   const { t } = useTranslation();
 
   const form = useForm({
