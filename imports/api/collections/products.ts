@@ -14,15 +14,7 @@ export const productSchema = productInsertSchema
   .merge(hasId)
   .merge(hasDates)
   .merge(hasUser)
-  .merge(
-    z.object({
-      user: z
-        .object({
-          emails: z.array(z.object({ address: z.string() })),
-        })
-        .optional(),
-    })
-  );
+  
 
 export type Product = z.infer<typeof productSchema>;
 
