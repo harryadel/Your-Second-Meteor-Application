@@ -18,7 +18,12 @@ const ProductForm = () => {
   const queryClient = useQueryClient();
   const { data: product, isLoading } = useProduct(id);
   const isEditing = Boolean(id);
-  const { data: categories = [] } = useGetCategories();
+  const { data: categories = [] } = useGetCategories({
+    options: { 
+      limit: 100,
+      sort: { field: "title", direction: false }
+    }
+  });
   const { t } = useTranslation();
 
   const form = useForm({
@@ -62,7 +67,7 @@ const ProductForm = () => {
     </Anchor>
   ));
 
-  const categoryOptions = categories.map((category) => ({
+  const categoryOptions = categories.data?.map((category) => ({
     value: category._id,
     label: category.title,
   }));

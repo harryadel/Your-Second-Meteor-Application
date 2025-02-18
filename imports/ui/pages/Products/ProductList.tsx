@@ -21,18 +21,23 @@ const ProductList = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
-  const { data: categories = [] } = useGetCategories();
+  const { data: categories = [] } = useGetCategories({
+    options: { 
+      sort: { field: "title", direction: false }
+    }
+  });
+  
   const { data: usersData } = useGetUsers({
-    options: { skip: 0, limit: 100, sort: { field: "createdAt", direction: true } },
+    options: { sort: { field: "createdAt", direction: true } },
     filters: []
   });
   const { t } = useTranslation();
 
   const categoryOptions = useMemo(() => 
-    categories.map(category => ({
+    categories.data?.map(category => ({
       value: category._id,
       label: category.title
-    })), [categories]);
+    })) || [], [categories]);
 
   const userOptions = useMemo(() => 
     usersData?.data?.map(user => ({
