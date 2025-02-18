@@ -8,8 +8,9 @@ import { loggedInPipeline } from "./pipelines";
 const categoryFilterSchema = z.object({
   title: z.string().optional(),
   userId: z.string().optional(),
+  createdAt: z.array(z.string()).optional(),
   search: z.object({
-    fields: z.array(z.string()),
+    fields: z.array(z.string()).optional(),
     searchText: z.string().optional(),
   }).optional(),
 }).strict();
