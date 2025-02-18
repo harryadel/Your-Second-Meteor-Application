@@ -94,7 +94,6 @@ const CategoryList = () => {
         overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
       >
         <Stack>
-          <FilterSearch label="Title" searchFields={["title"]} />
           <FilterDate label="Created On" name="createdAt" />
         </Stack>
       </Drawer>
