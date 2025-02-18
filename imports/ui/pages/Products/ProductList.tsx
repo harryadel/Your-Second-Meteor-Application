@@ -135,7 +135,6 @@ const ProductList = () => {
         overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
       >
         <Stack>
-          <FilterSearch label="Name" searchFields={["name"]} />
           <FilterMultiSelect
             label="Type"
             name="type"
