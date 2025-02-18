@@ -6,12 +6,12 @@ export const listUsers = createMethod({
   name: "users.list",
   schema: z.object({
     options: z.object({
-      limit: z.number(),
-      skip: z.number(),
+      limit: z.number().optional(),
+      skip: z.number().optional(),
       sort: z.object({
         field: z.string(),
-        direction: z.boolean(),
-      }),
+        direction: z.boolean()
+      }).optional(),
     }),
     filters: z.unknown(),
   }),
