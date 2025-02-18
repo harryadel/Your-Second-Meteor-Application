@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
+    "dev": "meteor run --settings settings.json --inspect",
     "test:once": "meteor test --once --driver-package meteortesting:mocha --port 4000",
     "test:watch": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha",
     "test:app:once": "meteor test --full-app --once --driver-package meteortesting:mocha",
