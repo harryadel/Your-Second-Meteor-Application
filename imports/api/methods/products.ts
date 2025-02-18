@@ -7,13 +7,13 @@ import { loggedInPipeline } from "./pipelines";
 // Define a strict filter schema to prevent NoSQL injection
 const productFilterSchema = z.object({
   name: z.string().optional(),
-  type: z.string().optional(),
+  type: z.array(z.string()).optional(),
   categoryIds: z.array(z.string()).optional(),
   search: z.object({
     fields: z.array(z.string()),
     searchText: z.string().optional(),
   }).optional(),
-  userId: z.string().optional(),
+  userId: z.array(z.string()).optional(),
 }).strict();
 
 export const productsList = createMethod({

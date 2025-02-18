@@ -136,7 +136,7 @@ describe('products', () => {
 
     // Test filtering by type
     result = await listMethod.apply({ userId }, [{
-      filters: { type: ProductType.Physical },
+      filters: { type: [ProductType.Physical] },
       options: { sort: { field: 'name', direction: true } }
     }]);
 

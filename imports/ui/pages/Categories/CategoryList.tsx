@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { CARD_PROPS, CustomDataTable, FilterSearch, Header } from "@components";
-import { Box, Button, Card, Group } from "@mantine/core";
+import { CARD_PROPS, CustomDataTable, FilterSearch, Header, FilterDate } from "@components";
+import { Box, Button, Card, Group, Stack, Drawer } from "@mantine/core";
 import { IconColumns, IconFilter, IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import { formatDistanceToNow } from "date-fns";
@@ -10,10 +10,12 @@ import { categoriesDelete } from "/imports/api/methods/categories";
 import { Category } from "/imports/api/collections/categories";
 import logger from "../../../utils/logger";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDisclosure } from "@mantine/hooks";
 
 const CategoryList = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [opened, { open, close }] = useDisclosure(false);
 
   const handleDelete = async (_id: string) => {
     await categoriesDelete({ _id });
@@ -79,11 +81,23 @@ const CategoryList = () => {
           <Button variant="light" leftSection={<IconColumns size="1rem" />}>
             Columns
           </Button>
-          <Button variant="light" leftSection={<IconFilter size="1rem" />}>
+          <Button variant="light" leftSection={<IconFilter size="1rem" />} onClick={open}>
             Filters
           </Button>
         </Group>
       </Card>
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="Filter Categories"
+        position="right"
+        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+      >
+        <Stack>
+          <FilterSearch label="Title" searchFields={["title"]} />
+          <FilterDate label="Created On" name="createdAt" />
+        </Stack>
+      </Drawer>
       <CustomDataTable<Category>
         columns={columns}
         useGetPaginatedHook={useGetCategories}

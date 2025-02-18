@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { CARD_PROPS, CustomDataTable, FilterSearch, Header } from "@components";
-import { Box, Button, Card, Group } from "@mantine/core";
+import { CARD_PROPS, CustomDataTable, FilterSearch, Header, FilterDate, FilterMultiSelect } from "@components";
+import { Box, Button, Card, Group, Stack, Drawer } from "@mantine/core";
 import { IconColumns, IconFilter, IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import { formatDistanceToNow } from "date-fns";
@@ -10,10 +10,32 @@ import { productsDelete } from "/imports/api/methods/products";
 import { Product } from "/imports/api/collections/products";
 import logger from "../../../utils/logger";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDisclosure } from "@mantine/hooks";
+import { ProductType } from "/imports/api/types/products";
+import { useCategories } from "/imports/ui/hooks/useCategories";
+import { useGetUsers } from "/imports/ui/hooks/users";
 
 const ProductList = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [opened, { open, close }] = useDisclosure(false);
+  const { data: categories = [] } = useCategories();
+  const { data: usersData } = useGetUsers({
+    options: { skip: 0, limit: 100, sort: { field: "createdAt", direction: true } },
+    filters: []
+  });
+
+  const categoryOptions = useMemo(() => 
+    categories.map(category => ({
+      value: category._id,
+      label: category.title
+    })), [categories]);
+
+  const userOptions = useMemo(() => 
+    usersData?.data?.map(user => ({
+      value: user._id,
+      label: user.emails?.[0]?.address || 'No email'
+    })) || [], [usersData]);
 
   const handleDelete = async (_id: string) => {
     await productsDelete({ _id });
@@ -90,11 +112,38 @@ const ProductList = () => {
           <Button variant="light" leftSection={<IconColumns size="1rem" />}>
             Columns
           </Button>
-          <Button variant="light" leftSection={<IconFilter size="1rem" />}>
+          <Button variant="light" leftSection={<IconFilter size="1rem" />} onClick={open}>
             Filters
           </Button>
         </Group>
       </Card>
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="Filter Products"
+        position="right"
+        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+      >
+        <Stack>
+          <FilterSearch label="Name" searchFields={["name"]} />
+          <FilterMultiSelect
+            label="Type"
+            name="type"
+            data={Object.values(ProductType)}
+          />
+          <FilterMultiSelect
+            label="Category"
+            name="categoryIds"
+            data={categoryOptions}
+          />
+          <FilterMultiSelect
+            label="Created By"
+            name="userId"
+            data={userOptions}
+          />
+          <FilterDate label="Created On" name="createdAt" />
+        </Stack>
+      </Drawer>
       <CustomDataTable<Product>
         columns={columns}
         useGetPaginatedHook={useGetProducts}
