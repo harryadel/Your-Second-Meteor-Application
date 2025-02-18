@@ -9,7 +9,11 @@ const productFilterSchema = z.object({
   name: z.string().optional(),
   type: z.string().optional(),
   categoryIds: z.array(z.string()).optional(),
-  userId: z.string().optional()
+  search: z.object({
+    fields: z.array(z.string()),
+    searchText: z.string().optional(),
+  }).optional(),
+  userId: z.string().optional(),
 }).strict();
 
 export const productsList = createMethod({
