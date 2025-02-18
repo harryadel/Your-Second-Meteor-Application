@@ -33,6 +33,12 @@ const ProductList = () => {
         sortable: true,
       },
       {
+        accessor: "categories",
+        title: "Categories",
+        sortable: true,
+        render: row => row.categories?.map((category: any) => category.title).join(", "),
+      },
+      {
         accessor: "createdAt",
         title: "Date",
         sortable: true,

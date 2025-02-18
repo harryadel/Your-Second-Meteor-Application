@@ -51,14 +51,16 @@ export const productsList = createMethod({
         },
         name: 1,
         type: 1,
-        categoryIds: 1,
+        categories: {
+          title: 1
+        },
         user: {
           emails: 1,
         },
         createdAt: 1,
       })
       .fetchAsync();
-      
+
     const total = await Products.collection.find(secureFilters).countAsync();
 
     return {
