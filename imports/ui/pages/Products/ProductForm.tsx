@@ -27,7 +27,6 @@ const ProductForm = () => {
     validate: {
       name: (value) => (!value ? "Name is required" : null),
       type: (value) => (!value ? "Type is required" : null),
-      categoryIds: (value) => (value.length === 0 ? "At least one category is required" : null),
     },
   });
 
@@ -119,7 +118,6 @@ const ProductForm = () => {
                 label="Categories"
                 placeholder="Select categories"
                 description="Select one or more categories for this product"
-                withAsterisk={true}
                 searchable
                 {...form.getInputProps("categoryIds")}
               />

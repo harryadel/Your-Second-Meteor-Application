@@ -6,7 +6,7 @@ import { ProductType } from "../types/products";
 export const productInsertSchema = z.object({
   name: z.string(),
   type: z.nativeEnum(ProductType),
-  categoryIds: z.array(z.string()),
+  categoryIds: z.array(z.string()).optional(),
 });
 type ProductInsert = z.infer<typeof productInsertSchema>;
 
