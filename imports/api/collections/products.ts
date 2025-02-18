@@ -1,6 +1,6 @@
 import { Mongo } from "meteor/mongo";
 import { z } from "zod";
-import { hasDates, hasId, hasSoftDelete, hasUser } from "./utils";
+import { hasDates, hasId, hasUser } from "./utils";
 import { ProductType } from "../types/products";
 
 export const productInsertSchema = z.object({
@@ -14,7 +14,6 @@ export const productSchema = productInsertSchema
   .merge(hasId)
   .merge(hasDates)
   .merge(hasUser)
-  .merge(hasSoftDelete)
   .merge(
     z.object({
       user: z
@@ -39,7 +38,6 @@ class ProductsCollection {
     this.collection.withSchema(productSchema);
     this.collection.withDates();
     this.collection.withUser();
-    this.collection.withSoftDelete();
   }
 }
 

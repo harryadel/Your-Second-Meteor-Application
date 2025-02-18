@@ -7,7 +7,7 @@ export function useCategories() {
     queryFn: async () => {
       const result = await categoriesList({
         options: {},
-        filters: { isDeleted: false }
+        filters: {}
       });
       return result.data;
     },

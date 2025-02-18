@@ -7,7 +7,6 @@ import { loggedInPipeline } from "./pipelines";
 // Define a strict filter schema to prevent NoSQL injection
 const categoryFilterSchema = z.object({
   title: z.string().optional(),
-  isDeleted: z.boolean().optional(),
   userId: z.string().optional()
 }).strict();
 
@@ -30,7 +29,6 @@ export const categoriesList = createMethod({
     // Ensure we only show non-deleted items by default
     const secureFilters = {
       ...filters,
-      isDeleted: filters.isDeleted ?? false
     };
 
     // Create a secure sort object for MongoDB
@@ -53,6 +51,7 @@ export const categoriesList = createMethod({
       })
       .fetchAsync();
       
+
     const total = await Categories.collection.find(secureFilters).countAsync();
 
     return {

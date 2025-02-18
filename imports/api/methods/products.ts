@@ -9,7 +9,6 @@ const productFilterSchema = z.object({
   name: z.string().optional(),
   type: z.string().optional(),
   categoryIds: z.array(z.string()).optional(),
-  isDeleted: z.boolean().optional(),
   userId: z.string().optional()
 }).strict();
 
@@ -31,7 +30,6 @@ export const productsList = createMethod({
     // Ensure we only show non-deleted items by default
     const secureFilters = {
       ...filters,
-      isDeleted: filters.isDeleted ?? false
     };
 
     // Create a secure sort object for MongoDB

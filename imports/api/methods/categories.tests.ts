@@ -56,13 +56,11 @@ if (Meteor.isServer) {
       const addMethod = Meteor.server.method_handlers['categories.add'];
       const categoryId = await addMethod.apply({ userId }, [categoryData]);
 
-
       const deleteMethod = Meteor.server.method_handlers['categories.delete'];
       await deleteMethod.apply({ userId }, [{ _id: categoryId }]);
 
       const deletedCategory = await Categories.collection.findOneAsync(categoryId);
-      assert.equal(deletedCategory.isDeleted, true);
-      assert.ok(deletedCategory.deletedAt instanceof Date);
+      assert.strictEqual(deletedCategory, undefined);
     });
 
     it("can list categories", async () => {
@@ -76,9 +74,9 @@ if (Meteor.isServer) {
         categories.map(category => addMethod.apply({ userId }, [category]))
       );
 
-
       const listMethod = Meteor.server.method_handlers['categories.list'];
       const result = await listMethod.apply({ userId }, [{ options: {} }]);
+      
       assert.strictEqual(result.total, 2);
       assert.strictEqual(result.data.length, 2);
     });
