@@ -9,6 +9,8 @@ import { PAPER_PROPS } from "../../constants/styles";
 import { productsAdd, productsUpdate } from "/imports/api/methods/products";
 import { useCategories } from "/imports/ui/hooks/useCategories";
 import { ProductType } from "/imports/api/types/products";
+import { useTranslation } from "react-i18next";
+import "/imports/i18n/config";
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -17,6 +19,7 @@ const ProductForm = () => {
   const { data: product, isLoading } = useProduct(id);
   const isEditing = Boolean(id);
   const { data: categories = [] } = useCategories();
+  const { t } = useTranslation();
 
   const form = useForm({
     initialValues: {
@@ -64,10 +67,9 @@ const ProductForm = () => {
     label: category.title,
   }));
 
-  const typeOptions = Object.entries(ProductType).map(([key, value]) => ({
+  const typeOptions = Object.entries(ProductType).map(([_, value]) => ({
     value,
-    // Capitalize the first letter
-    label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase(),
+    label: t(`type.${value}`),
   }));
 
   if (isEditing && isLoading) {

@@ -14,6 +14,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { ProductType } from "/imports/api/types/products";
 import { useCategories } from "/imports/ui/hooks/useCategories";
 import { useGetUsers } from "/imports/ui/hooks/users";
+import { useTranslation } from "react-i18next";
+import "/imports/i18n/config";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ const ProductList = () => {
     options: { skip: 0, limit: 100, sort: { field: "createdAt", direction: true } },
     filters: []
   });
+  const { t } = useTranslation();
 
   const categoryOptions = useMemo(() => 
     categories.map(category => ({
@@ -36,6 +39,12 @@ const ProductList = () => {
       value: user._id,
       label: user.emails?.[0]?.address || 'No email'
     })) || [], [usersData]);
+
+  const typeOptions = useMemo(() => 
+    Object.values(ProductType).map(value => ({
+      value,
+      label: t(`type.${value}`)
+    })), [t]);
 
   const handleDelete = async (_id: string) => {
     await productsDelete({ _id });
@@ -51,8 +60,9 @@ const ProductList = () => {
       },
       {
         accessor: "type",
-        title: "Type",
+        title: t("Type"),
         sortable: true,
+        render: row => t(`type.${row.type}`)
       },
       {
         accessor: "categories",
@@ -86,7 +96,7 @@ const ProductList = () => {
         ),
       },
     ],
-    [navigate]
+    [navigate, t]
   );
 
   return (
@@ -129,7 +139,7 @@ const ProductList = () => {
           <FilterMultiSelect
             label="Type"
             name="type"
-            data={Object.values(ProductType)}
+            data={typeOptions}
           />
           <FilterMultiSelect
             label="Category"
