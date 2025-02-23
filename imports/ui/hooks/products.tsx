@@ -5,7 +5,7 @@ import { Product } from "/imports/api/collections/products";
 import { useState, useEffect } from "react";
 
 export const PRODUCTS_LIST_QUERY = "PRODUCTS_LIST_QUERY";
-export const PRODUCT_QUERY = "product";
+export const PRODUCT_QUERY = "PRODUCT_QUERY";
 
 type useGetProductsProps = {
   options: any;

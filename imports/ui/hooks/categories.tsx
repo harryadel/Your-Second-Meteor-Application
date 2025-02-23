@@ -3,7 +3,7 @@ import { categoriesList, categoriesSingle } from "/imports/api/methods/categorie
 import { Category } from "/imports/api/collections/categories";
 
 export const CATEGORIES_LIST_QUERY = "CATEGORIES_LIST_QUERY";
-export const CATEGORY_QUERY = "category";
+export const CATEGORY_QUERY = "CATEGORY_QUERY";
 
 type useGetCategoriesProps = {
   options: {
