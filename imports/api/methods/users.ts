@@ -35,30 +35,17 @@ export const listUsers = createMethod({
   async run(args) {
     const { filters = {}, options } = args;
 
-    // Ensure we only show non-deleted items by default
-    const secureFilters = {
-      ...filters,
-    };
-
-    // Create a secure sort object for MongoDB
-    const sort = options.sort 
-      ? { [options.sort.field]: options.sort.direction ? 1 : -1 }
-      : { createdAt: -1 };
-
     const data = await Meteor.users
       .createQuery({
-        $filters: secureFilters,
-        $options: {
-          ...options,
-          sort
-        },
+        $filters: filters,
+        $options: options,
         profile: 1,
         emails: 1,
         createdAt: 1,
       })
       .fetchAsync();
 
-    const total = await Meteor.users.find(secureFilters).countAsync();
+    const total = await Meteor.users.find(filters).countAsync();
 
     return { data, total };
   },

@@ -31,23 +31,10 @@ export const categoriesList = createMethod({
   async run(args): Promise<{ data: Category[]; total: number }> {
     const { filters = {}, options } = args;
 
-    // Ensure we only show non-deleted items by default
-    const secureFilters = {
-      ...filters,
-    };
-
-    // Create a secure sort object for MongoDB
-    const sort = options.sort 
-      ? { [options.sort.field]: options.sort.direction ? 1 : -1 }
-      : { createdAt: -1 };
-
     const data = await Categories.collection
       .createQuery({
-        $filters: secureFilters,
-        $options: {
-          ...options,
-          sort
-        },
+        $filters: filters,
+        $options: options,
         title: 1,
         user: {
           emails: 1,
@@ -57,7 +44,7 @@ export const categoriesList = createMethod({
       .fetchAsync();
       
 
-    const total = await Categories.collection.find(secureFilters).countAsync();
+    const total = await Categories.collection.find(filters).countAsync();
 
     return {
       data,

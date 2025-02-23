@@ -32,24 +32,11 @@ export const productsList = createMethod({
   }),
   async run(args): Promise<{ data: Product[]; total: number }> {
     const { filters = {}, options } = args;
-    // Ensure we only show non-deleted items by default
-    const secureFilters = {
-      ...filters,
-    };
-
-    // Create a secure sort object for MongoDB
-    const sort = options.sort 
-      ? { [options.sort.field]: options.sort.direction ? -1 : 1 }
-      : { createdAt: -1 };
-    
 
     const data = await Products.collection
       .createQuery({
-        $filters: secureFilters,
-        $options: {
-          ...options,
-          sort
-        },
+        $filters: filters,
+        $options: options,
         name: 1,
         type: 1,
         categories: {
@@ -62,7 +49,7 @@ export const productsList = createMethod({
       })
       .fetchAsync();
 
-    const total = await Products.collection.find(secureFilters).countAsync();
+    const total = await Products.collection.find(filters).countAsync();
 
     return {
       data,

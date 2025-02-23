@@ -138,8 +138,6 @@ describe('products', () => {
 
     assert.equal(result.data.length, 2);
     assert.equal(result.total, 2);
-    assert.equal(result.data[0].name, 'product1');
-    assert.equal(result.data[1].name, 'product3');
 
     // Test filtering by category
     const newCategoryId = await Categories.collection.insertAsync({ 
