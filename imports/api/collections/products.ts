@@ -1,13 +1,8 @@
 import { Mongo } from "meteor/mongo";
 import { z } from "zod";
 import { hasDates, hasId, hasUser } from "./utils";
-import { ProductType } from "../types/products";
+import { productInsertSchema } from "./schemas";
 
-export const productInsertSchema = z.object({
-  name: z.string(),
-  type: z.nativeEnum(ProductType),
-  categoryIds: z.array(z.string()).optional(),
-});
 type ProductInsert = z.infer<typeof productInsertSchema>;
 
 export const productSchema = productInsertSchema

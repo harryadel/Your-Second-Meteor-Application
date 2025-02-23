@@ -1,10 +1,8 @@
 import { Mongo } from "meteor/mongo";
 import { z } from "zod";
 import { hasDates, hasId, hasUser } from "./utils";
+import { categoryInsertSchema } from "./schemas";
 
-export const categoryInsertSchema = z.object({
-  title: z.string(),
-});
 type CategoryInsert = z.infer<typeof categoryInsertSchema>;
 
 export const categorySchema = categoryInsertSchema

@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Card, Group, TextInput, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { zodResolver } from "mantine-form-zod-resolver";
 import { categoriesAdd, categoriesUpdate } from "/imports/api/methods/categories";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetCategory } from "@hooks";
+import { categoryInsertSchema } from "/imports/api/collections/schemas";
 
 export default function CategoryForm() {
   const navigate = useNavigate();
@@ -15,9 +17,7 @@ export default function CategoryForm() {
     initialValues: {
       title: "",
     },
-    validate: {
-      title: (value) => (!value ? "Title is required" : null),
-    },
+    validate: zodResolver(categoryInsertSchema),
   });
 
   const { data: category } = useGetCategory(id);

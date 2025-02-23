@@ -12,12 +12,20 @@ import {
   Title,
 } from "@mantine/core";
 import React, { useState } from "react";
-import { isNotEmpty, useForm } from "@mantine/form";
+import { useForm } from "@mantine/form";
+import { z } from "zod";
+import { zodResolver } from "mantine-form-zod-resolver";
 import { Meteor } from "meteor/meteor";
 import { Navigate } from "react-router";
 import { handleMeteorError } from "../utils/notifications";
 import { useTracker } from "meteor/react-meteor-data";
 import logger from "../../utils/logger";
+
+const schema = z.object({
+  email: z.string().email({ message: "Invalid email" }),
+  password: z.string().min(1, { message: "Enter your password" }),
+  code: z.string().optional(),
+});
 
 const Login = () => {
   const [redirect, setRedirect] = useState(false);
@@ -30,11 +38,7 @@ const Login = () => {
       password: "",
       code: "",
     },
-
-    validate: {
-      email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-      password: isNotEmpty("Enter your password"),
-    },
+    validate: zodResolver(schema),
     validateInputOnBlur: true,
   });
 

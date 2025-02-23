@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Header, PageContainer } from "@components";
 import { Anchor, Button, Paper, Stack, Text, TextInput, MultiSelect, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { zodResolver } from "mantine-form-zod-resolver";
 import { useNavigate, useParams } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { PRODUCTS_LIST_QUERY, useProduct } from "@hooks";
@@ -11,6 +12,7 @@ import { useGetCategories } from "/imports/ui/hooks/categories";
 import { ProductType } from "/imports/api/types/products";
 import { useTranslation } from "react-i18next";
 import "/imports/i18n/config";
+import { productInsertSchema } from "../../../api/collections/schemas";
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -32,10 +34,7 @@ const ProductForm = () => {
       type: ProductType.Physical,
       categoryIds: [] as string[],
     },
-    validate: {
-      name: (value) => (!value ? "Name is required" : null),
-      type: (value) => (!value ? "Type is required" : null),
-    },
+    validate: zodResolver(productInsertSchema),
   });
 
   useEffect(() => {
