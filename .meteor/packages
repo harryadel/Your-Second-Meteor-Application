@@ -27,20 +27,8 @@ zodern:types # Pull in type declarations from other Meteor packages
 
 accounts-base@3.0.3
 accounts-password@3.0.3
-alanning:roles
 zodern:relay
-herteby:denormalize
 
 accounts-2fa
-percolate:migrations
-
-# Testing packages
-
-dburles:factory
-meteortesting:mocha
-meteortesting:mocha-core
-meteortesting:browser-tests
-lmieulet:meteor-coverage
-velocity:meteor-stubs
-cultofcoders:grapher
 aldeed:collection2@4.1.1-beta.3
+
