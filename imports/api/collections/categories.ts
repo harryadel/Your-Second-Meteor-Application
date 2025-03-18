@@ -1,4 +1,5 @@
 import { Mongo } from "meteor/mongo";
+import 'meteor/aldeed:collection2/static';
 import { z } from "zod";
 import { hasDates, hasId, hasUser } from "./utils";
 import { categoryInsertSchema } from "./schemas";
@@ -22,9 +23,7 @@ class CategoriesCollection {
   constructor() {
     this.collection = new Mongo.Collection("categories");
 
-    this.collection.withSchema(categorySchema);
-    this.collection.withDates();
-    this.collection.withUser();
+    this.collection.attachSchema(categorySchema);
   }
 }
 
