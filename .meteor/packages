@@ -28,7 +28,6 @@ zodern:types # Pull in type declarations from other Meteor packages
 accounts-base@3.0.3
 accounts-password@3.0.3
 alanning:roles
-pmogollons:zod-schema
 zodern:relay
 herteby:denormalize
 
@@ -44,3 +43,4 @@ meteortesting:browser-tests
 lmieulet:meteor-coverage
 velocity:meteor-stubs
 cultofcoders:grapher
+aldeed:collection2@4.1.1-beta.3

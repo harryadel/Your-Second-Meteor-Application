@@ -2,6 +2,8 @@ accounts-2fa@3.0.1
 accounts-base@3.0.4
 accounts-password@3.0.3
 alanning:roles@4.0.0
+aldeed:collection2@4.1.1-beta.3
+aldeed:simple-schema@1.13.1
 allow-deny@2.1.0
 autoupdate@2.0.0
 babel-compiler@7.11.3
@@ -66,8 +68,8 @@ mongo-id@1.0.9
 npm-mongo@6.10.2
 ordered-dict@1.2.0
 percolate:migrations@2.0.0
-pmogollons:zod-schema@1.0.4
 promise@1.0.0
+raix:eventemitter@1.0.0
 random@1.2.2
 rate-limit@1.1.2
 react-fast-refresh@0.2.9
